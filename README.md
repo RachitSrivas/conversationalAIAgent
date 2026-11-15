@@ -1,6 +1,6 @@
 # Minimy — Conversational Search Agent
 
-> The conversational AI agent equipped with real-time web search, deterministic temporal grounding, and persistent episodic memory across sessions. Built for the **minimi hiring challenge**.
+> The conversational AI agent equipped with real-time web search, deterministic temporal grounding, and persistent episodic memory across sessions. 
 
 ![Node.js](https://img.shields.io/badge/Node.js-v22-green.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)
@@ -121,6 +121,3 @@ npm run seed
 
 ---
 
-## 📄 License
-
-MIT
