@@ -1,4 +1,5 @@
 export interface SearchSource {
+  [key: string]: any;
   title: string;
   url: string;
   snippet: string;
@@ -8,6 +9,7 @@ export interface SearchSource {
 }
 
 export interface SearchToolResult {
+  [key: string]: any;
   query: string;
   results: SearchSource[];
   summary?: string;

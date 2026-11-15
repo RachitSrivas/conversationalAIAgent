@@ -14,6 +14,7 @@ interface MessageItemProps {
     content: string;
     createdAt?: string | Date;
     toolInvocations?: any[];
+    annotations?: any[];
   };
 }
 
@@ -34,6 +35,22 @@ export function MessageItem({ message }: MessageItemProps) {
           : message.createdAt.toISOString()
       )
     : null;
+
+  // Extract tool invocations from native toolInvocations or stream annotations
+  const annotationsList = Array.isArray(message.annotations) ? message.annotations : [];
+  const searchAnnotations = annotationsList
+    .filter((a: any) => a?.type === 'search_results')
+    .map((a: any) => ({
+      toolName: 'web_search',
+      args: a.args || { query: a.query },
+      state: a.state || 'result',
+      result: a.result,
+    }));
+
+  const allToolInvocations = [
+    ...(message.toolInvocations || []),
+    ...searchAnnotations,
+  ];
 
   return (
     <div
@@ -80,9 +97,9 @@ export function MessageItem({ message }: MessageItemProps) {
         </div>
 
         {/* Render Web Search Tool Invocations */}
-        {message.toolInvocations && message.toolInvocations.length > 0 && (
+        {allToolInvocations.length > 0 && (
           <div className="space-y-1 my-2">
-            {message.toolInvocations.map((inv: any, idx: number) => (
+            {allToolInvocations.map((inv: any, idx: number) => (
               <SearchToolCall key={inv.toolCallId || idx} toolInvocation={inv} />
             ))}
           </div>
